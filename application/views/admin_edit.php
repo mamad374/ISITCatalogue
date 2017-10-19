@@ -85,7 +85,6 @@
                             <div class="row">
                                 <div class="col-lg-8">
                                     <form action="<?php echo base_url().'index.php/c_database/form_edit'?>" method="post" role="form">
-                                    <!--<?php echo form_open_multipart('index.php/c_database/form_edit');?> -->
                                         <div class="form-group">
                                             <label>ID APLIKASI</label>
                                             <input type="text" name="id_aplikasi" class="form-control" value="<?php echo $data['id_aplikasi']; ?>" readonly>
@@ -100,11 +99,11 @@
                                         </div>
                                        <div class="form-group">
                                             <label>HARGA APLIKASI</label>
-                                            <input type="number" name="harga_apps" class="form-control" value="<?php echo $data['harga_apps']; ?>" required> 
+                                            <input type="text" name="harga_apps" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label>SPESIFIKASI</label>
-                                            <input type="text" name="spesifikasi_apps" rows="3" class="form-control" value="<?php echo $data['spesifikasi_apps']; ?>" required></input>
+                                            <textarea name="spesifikasi_apps" rows="3" class="form-control" required></textarea> 
                                         </div>
                                         <input type="submit" class="btn btn-primary" name="Simpan" value="Simpan">
                                     </form>
