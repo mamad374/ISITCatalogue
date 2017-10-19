@@ -26,7 +26,7 @@ class C_database extends CI_Controller {
         $spesifikasi_apps = $_POST['spesifikasi_apps'];
 
         $apps_kumpul = array(
-            'id_aplikasi' => $id_aplikasi,
+           'id_aplikasi' => $id_aplikasi,
             'nama_aplikasi' => $nama_aplikasi,
             'genre_apps' => $genre_apps,
             'harga_apps' => $harga_apps,
