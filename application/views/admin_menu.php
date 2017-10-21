@@ -51,7 +51,7 @@
                     <div class="sidebar-collapse">
                         <ul class="nav" id="side-menu">
                             <li>
-                                <a href="#"><i class="fa fa-table fa-fw"></i> Produk <!--<span class="fa arrow"></span> --> </a>
+                                <a href="<?php echo base_url().'index.php/admin_cek/index' ?>"><i class="fa fa-table fa-fw"></i> Produk <!--<span class="fa arrow"></span> --> </a>
                                 <!--
                                 <ul class="nav nav-second-level">
                                     <li>
