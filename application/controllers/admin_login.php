@@ -25,21 +25,10 @@ class admin_login extends CI_Controller {
             redirect('admin_cek/index');
         } else {
             $this->session->set_flashdata('error', 'Username dan password salah!');
-            /*
-            $this->index();
-            echo '<script language="javascript">';
-            echo 'alert("Username dan Password salah!");';
-            echo '</script>';
-             * 
-             */
-            redirect('admin_login/index');
-        }    
-        
-        }
+            redirect('admin_login/index');}}
 
     public function logout() {
         $this->session->sess_destroy();
-        redirect('admin_login/index');
-    }
+        redirect('admin_login/index');}
 
 }
