@@ -1,43 +1,84 @@
 <?php
 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 /**
- * Part of ci-phpunit-test
+ * Description of admin_login_test
  *
- * @author     Kenji Suzuki <https://github.com/kenjis>
- * @license    MIT License
- * @copyright  2015 Kenji Suzuki
- * @link       https://github.com/kenjis/ci-phpunit-test
+ * @author arifc
  */
 class admin_login_test extends TestCase {
 
     public function setUp() {
-        $this->resetInstance();
-        $this->CI->load->model('m_database');
-        $this->objek = $this->CI->m_database;
+        if (isset($_SESSION)) {
+            $_SESSION = array();
+            $this->resetInstance();
+            $this->CI->load->model('m_database');
+            $this->obj = $this->CI->m_database;
+        }
     }
 
     public function test_index() {
-        $output = $this->request('POST', 'admin_login/index');
+        $output = $this->request('GET', 'admin_login/index');
         $this->assertContains('<title>ISITCatalogue_Login</title>', $output);
     }
 
-    public function test_login() {
+    public function test_login_success() {
         $this->request('POST', 'admin_login/login', [
             'username' => '123',
             'password' => '123',
+                ]
+        );
+        $this->assertEquals('123', $_SESSION['username']);
+    }
+
+    public function test_login_gagal_password_salah() {
+        $this->request('POST', 'admin_login/login', [
+            'username' => '123',
+            'password' => '1234',
         ]);
+        $this->assertRedirect('admin_login/index');
+        $this->assertFalse(isset($_SESSION['usernama']));
     }
 
-    public function test_page_admin() {
-        $output = $this->request('GET', 'admin_login/page_admin');
-        $this->assertContains('<title>IS IT Catalogue Admin | PRODUK</title>', $output);
+    public function test_login_gagal_password_kosong() {
+        $this->request('POST', 'admin_login/login', [
+            'username' => '123',
+            'password' => '',
+        ]);
+        $this->assertRedirect('admin_login/index');
+        $this->assertFalse(isset($_SESSION['usernama']));
     }
 
-    public function test_logout() {
-        $_SESSION['username'] = "123";
-        $_SESSION['password'] = "123";
-        $output = $this->request('GET', 'admin_login/logout');
-        $this->assertRedirect('admin_login');
+    public function test_alogin_gagal_username_salah() {
+        $this->request('POST', 'admin_login/login', [
+            'username' => '1234',
+            'password' => '123',
+        ]);
+        $this->assertRedirect('admin_login/index');
+        $this->assertFalse(isset($_SESSION['usernama']));
+    }
+
+    public function test_alogin_gagal_username_kosong() {
+        $this->request('POST', 'admin_login/login', [
+            'username' => '',
+            'password' => '123',
+        ]);
+        $this->assertRedirect('admin_login/index');
+        $this->assertFalse(isset($_SESSION['usernama']));
+    }
+
+    public function test_admin_logout() {
+        $_SESSION['nama'] = "123";
+        $_SESSION['status'] = "login";
+        $this->assertTrue(isset($_SESSION['nama']));
+        $this->request('GET', 'admin_login/logout');
+        //$output = $this->assertRedirect('admin_login/index');
+        $this->assertFalse(isset($_SESSION['username']));
     }
 
 }
