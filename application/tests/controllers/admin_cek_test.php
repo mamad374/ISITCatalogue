@@ -14,9 +14,13 @@
 class admin_cek_test extends TestCase {
 
     public function setup() {
-        $this->resetInstance();
-        $this->CI->load->model('m_database');
-        $this->obj = $this->CI->m_database;
+
+        if (isset($_SESSION)) {
+            $_SESSION = array();
+            $this->resetInstance();
+            $this->CI->load->model('m_database');
+            $this->obj = $this->CI->m_database;
+        }
     }
 
     public function test_admin_cek_not_login() {
@@ -25,13 +29,11 @@ class admin_cek_test extends TestCase {
     }
 
     public function test_index() {
+        $_SESSION['username'] = "123";
+        $_SESSION['status'] = "login";
+
         $output = $this->request('GET', 'admin_cek/index');
-        $data = $this->obj->getApliasi();
-        $expecting = '';
-        foreach ($data as $x) {
-            $expecting = $x['produk_nama'];
-        }
-        $this->assertContains($expecting, $output);
+        $this->assertContains('<title>IS IT Catalogue Admin | PRODUK</title>', $output);
     }
 
 }

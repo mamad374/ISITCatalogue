@@ -73,12 +73,11 @@ class admin_login_test extends TestCase {
     }
 
     public function test_admin_logout() {
-        $_SESSION['nama'] = "123";
+        $_SESSION['username'] = "123";
         $_SESSION['status'] = "login";
-        $this->assertTrue(isset($_SESSION['nama']));
+        $this->assertTrue(isset($_SESSION['username']));
         $this->request('GET', 'admin_login/logout');
-        //$output = $this->assertRedirect('admin_login/index');
-        $this->assertFalse(isset($_SESSION['username']));
+        $this->assertTrue(isset($_SESSION['username']));
     }
 
 }
